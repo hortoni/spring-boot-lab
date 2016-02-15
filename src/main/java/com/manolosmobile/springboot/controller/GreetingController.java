@@ -1,14 +1,18 @@
 package com.manolosmobile.springboot.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.manolosmobile.springboot.model.Greeting;
+import org.springframework.web.client.RestTemplate;
+import sun.jvm.hotspot.oops.Array;
 
 @Controller
 public class GreetingController {
@@ -21,34 +25,10 @@ public class GreetingController {
 	
 	@RequestMapping("/greetings")
     public String greetings(Model model) {
-		
-        model.addAttribute("greetings", getListGreetings());
+		RestTemplate restTemplate = new RestTemplate();
+		List<Greeting> greetings = Arrays.asList(restTemplate.getForObject("http://localhost:8080/getGreetingList", Greeting[].class));
+        model.addAttribute("greetings", greetings);
         return "greetings";
     }
-	
-	
-	private List<String> getList() {
 
-		List<String> list = new ArrayList<String>();
-		list.add("List A");
-		list.add("List B");
-		list.add("List C");
-		list.add("List D");
-		list.add("List 1");
-		list.add("List 2");
-		list.add("List 3");
-
-		return list;
-
-	}
-	
-	private List<Greeting> getListGreetings() {
-		List<Greeting> list = new ArrayList<Greeting>();
-		
-		list.add(new Greeting(1, "thiago"));
-		list.add(new Greeting(2, "ph"));
-		list.add(new Greeting(3, "hortoni"));
-
-		return list;
-	}
 }

@@ -44,6 +44,9 @@ public class RestGreetingController {
 		}
 		return null;
 	}
-	
-	
+
+	@RequestMapping("/getGreetingList")
+	public List <Greeting> getGreetingList() {
+		return greetings;
+	}
 }
