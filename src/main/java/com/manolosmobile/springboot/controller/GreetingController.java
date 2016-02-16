@@ -14,6 +14,7 @@ import java.util.List;
 public class GreetingController {
 
     private RestTemplate restTemplate = new RestTemplate();
+    private String serviceUrl = buildServiceUrl();
 
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
@@ -23,12 +24,12 @@ public class GreetingController {
 
     @RequestMapping("/greetings")
     public String greetings(Model model) {
-        List<Greeting> greetings = Arrays.asList(restTemplate.getForObject(getServiceUrl() + "/getGreetingList", Greeting[].class));
+        List<Greeting> greetings = restTemplate.getForObject(serviceUrl + "/getGreetings", List.class);
         model.addAttribute("greetings", greetings);
         return "greetings";
     }
 
-    private String getServiceUrl() {
+    private String buildServiceUrl() {
         String port = System.getenv("PORT");
         if (port == null) {
             port = "8080";

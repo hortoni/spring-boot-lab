@@ -8,44 +8,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class RestGreetingController {
 
-	private static final String template = "Hello, %s";
 	private final AtomicLong counter = new AtomicLong();
 	private List<Greeting> greetings = new ArrayList<>();
 
 	@RequestMapping("/create")
 	public Greeting createGreeting(@RequestParam(value="name", required=true) String name) {
-		Greeting greeting = new Greeting(counter.incrementAndGet(), String.format(template, name));
+		Greeting greeting = new Greeting(counter.incrementAndGet(), "Hello, " + name);
 		greetings.add(greeting);
 		return greeting;
 	}
 
 	@RequestMapping("/get")
-	public Greeting getGreeting(@RequestParam(value="id", required=true) long id) {
-		for (Greeting greeting : greetings) {
-			if (greeting.getId() == id) {
-				return greeting;
-			}
-		}
-		return null;
+	public Greeting getGreetingByRequestParam(@RequestParam(value="id", required=true) long id) {
+        return getGreeting(id);
 	}
 
 	@RequestMapping("/get/{id}")
-	public Greeting getGreeting2(@PathVariable(value="id") long id) {
-		for (Greeting greeting : greetings) {
-			if (greeting.getId() == id) {
-				return greeting;
-			}
-		}
-		return null;
+	public Greeting getGreetingByPathVariable(@PathVariable(value="id") long id) {
+		return getGreeting(id);
 	}
 
-	@RequestMapping("/getGreetingList")
-	public List <Greeting> getGreetingList() {
+    private Greeting getGreeting(long id) {
+        return greetings.stream().filter(g -> g.getId() == id).findFirst().orElse(null);
+    }
+
+	@RequestMapping("/getGreetings")
+	public List<Greeting> getGreetings() {
 		return greetings;
 	}
+
 }
