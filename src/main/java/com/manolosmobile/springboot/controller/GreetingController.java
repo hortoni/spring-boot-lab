@@ -1,6 +1,7 @@
 package com.manolosmobile.springboot.controller;
 
 import com.manolosmobile.springboot.model.Greeting;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +23,15 @@ public class GreetingController {
     @RequestMapping("/greetings")
     public String greetings(Model model) {
         RestTemplate restTemplate = new RestTemplate();
-        List<Greeting> greetings = Arrays.asList(restTemplate.getForObject("http://localhost:8080/getGreetingList", Greeting[].class));
+
+        List<Greeting> greetings = Arrays.asList(restTemplate.getForObject("http://localhost:" + getPort() + "/getGreetingList", Greeting[].class));
         model.addAttribute("greetings", greetings);
         return "greetings";
+    }
+
+    private String getPort() {
+        String port = System.getenv("port");
+        return (port == null) ? "8080" : port;
     }
 
 }
