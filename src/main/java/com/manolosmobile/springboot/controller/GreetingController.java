@@ -1,18 +1,14 @@
 package com.manolosmobile.springboot.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
+import com.manolosmobile.springboot.model.Greeting;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.manolosmobile.springboot.model.Greeting;
 import org.springframework.web.client.RestTemplate;
-import sun.jvm.hotspot.oops.Array;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class GreetingController {
