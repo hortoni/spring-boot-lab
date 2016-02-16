@@ -13,16 +13,16 @@ import java.util.List;
 @Controller
 public class GreetingController {
 
-	@RequestMapping("/greeting")
+    @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return "greeting";
     }
-	
-	@RequestMapping("/greetings")
+
+    @RequestMapping("/greetings")
     public String greetings(Model model) {
-		RestTemplate restTemplate = new RestTemplate();
-		List<Greeting> greetings = Arrays.asList(restTemplate.getForObject("http://localhost:8080/getGreetingList", Greeting[].class));
+        RestTemplate restTemplate = new RestTemplate();
+        List<Greeting> greetings = Arrays.asList(restTemplate.getForObject("http://localhost:8080/getGreetingList", Greeting[].class));
         model.addAttribute("greetings", greetings);
         return "greetings";
     }

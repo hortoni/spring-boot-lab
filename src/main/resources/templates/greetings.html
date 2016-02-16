@@ -1,33 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	<title>Getting Started: Serving Web Content</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
-	<body>
-		<table>
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>Name</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:if="${greetings.empty}">
-            <td colspan="4">No tasks</td>
-          </tr>
-          
-          <tr th:each="greeting : ${greetings}">
-          
-          	<!-- <td th:text="${greeting}"></td> -->
-          	
-            <!-- <td th:text="${id}">1</td>
-            <td th:text="${name}">Text ...</td> -->
-            
-            <td th:text="${greeting.id}"></td>
-            <td th:text="${greeting.content}"></td>
-          </tr>
-        </tbody>
-      </table>
-	</body>
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${greetings.empty}">
+        <td colspan="4">No tasks</td>
+    </tr>
+
+    <tr th:each="greeting : ${greetings}">
+
+        <!-- <td th:text="${greeting}"></td> -->
+
+        <!-- <td th:text="${id}">1</td>
+        <td th:text="${name}">Text ...</td> -->
+
+        <td th:text="${greeting.id}"></td>
+        <td th:text="${greeting.content}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
 </html>
